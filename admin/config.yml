@@ -1,20 +1,18 @@
 backend:
   name: git-gateway
   branch: main
-  site_url: https://ipft.studio
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "uploads"
+public_folder: "/uploads"
 
 collections:
   - name: "works"
     label: "Works"
-    folder: "content/works"
+    folder: "works"
     create: true
-    slug: "{{year}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Year", name: "year", widget: "number" }
       - { label: "Image", name: "image", widget: "image" }
-      - { label: "Medium", name: "medium", widget: "string", required: false }
-      - { label: "Size", name: "size", widget: "string", required: false }
+      - { label: "Year", name: "year", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
