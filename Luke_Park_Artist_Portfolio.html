@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luke Park — Visual Artist & Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        gallery: {
+                            50: '#f9f9f8',
+                            100: '#f4f4f2',
+                            200: '#e6e6e2',
+                            800: '#1c1c1a',
+                            900: '#121211',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(150, 150, 150, 0.3);
+            border-radius: 3px;
+        }
+        .gallery-item {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        }
+        .gallery-item:hover .artwork-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gallery-50 text-gallery-900 dark:bg-gallery-900 dark:text-gallery-50 antialiased min-h-screen flex flex-col justify-between selection:bg-neutral-800 selection:text-white dark:selection:bg-neutral-200 dark:selection:text-black">
+
+    <header class="fixed top-0 left-0 w-full z-40 backdrop-blur-md bg-gallery-50/80 dark:bg-gallery-900/80 border-b border-neutral-200/60 dark:border-neutral-800/60 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="serif text-2xl md:text-3xl tracking-widest font-light uppercase hover:opacity-70 transition-opacity">
+                LUKE PARK <span class="text-xs tracking-widest font-sans uppercase text-neutral-400 block md:inline md:ml-2">Studio</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-10 text-xs tracking-widest font-light uppercase">
+                <a href="#gallery" class="hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors">Works</a>
+                <a href="#exhibition" class="hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors">Exhibitions</a>
+                <a href="#about" class="hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors">About</a>
+                <a href="#contact" class="hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors">Contact</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <!-- Add Artwork Button -->
+                <button onclick="openUploadModal()" class="text-xs uppercase tracking-wider px-3.5 py-1.5 rounded border border-neutral-800 dark:border-neutral-200 hover:bg-neutral-900 hover:text-white dark:hover:bg-neutral-100 dark:hover:text-black transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                    <span class="hidden sm:inline">Add Artwork</span>
+                </button>
+
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors" aria-label="Toggle Theme">
+                    <i class="fa-regular fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-regular fa-sun hidden dark:block text-lg"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="md:hidden p-2 text-xl focus:outline-none" aria-label="Toggle Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-gallery-50 dark:bg-gallery-900 border-b border-neutral-200 dark:border-neutral-800 px-6 py-6 transition-all duration-300">
+            <nav class="flex flex-col space-y-4 text-sm tracking-widest uppercase">
+                <a href="#gallery" onclick="toggleMobileMenu()" class="hover:text-neutral-500">Works</a>
+                <a href="#exhibition" onclick="toggleMobileMenu()" class="hover:text-neutral-500">Exhibitions</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="hover:text-neutral-500">About</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-neutral-500">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section class="py-24 md:py-36 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-center items-start border-b border-neutral-200 dark:border-neutral-800/50">
+            <p class="text-xs uppercase tracking-[0.3em] text-neutral-500 dark:text-neutral-400 mb-4">LUKE PARK — FINE ART STUDIO</p>
+            <h1 class="serif text-4xl sm:text-6xl md:text-7xl font-extralight tracking-tight leading-tight max-w-4xl mb-8">
+                Capturing silent moments, architectural light, and tactile abstraction.
+            </h1>
+            <div class="flex gap-6">
+                <a href="#gallery" class="text-xs uppercase tracking-widest border-b border-neutral-900 dark:border-neutral-100 pb-1 hover:opacity-60 transition-opacity">
+                    View Selected Works &rarr;
+                </a>
+            </div>
+        </section>
+
+        <section id="gallery" class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <h2 class="serif text-3xl md:text-4xl font-light">Selected Works</h2>
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-2 tracking-wider uppercase">Archival Works & Series</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                    <button onclick="filterGallery('all')" class="filter-btn px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-neutral-800 dark:hover:border-neutral-200 active-filter bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black transition-all" data-category="all">All</button>
+                    <button onclick="filterGallery('painting')" class="filter-btn px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all" data-category="painting">Paintings</button>
+                    <button onclick="filterGallery('selected')" class="filter-btn px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all" data-category="selected">Selected Works</button>
+                    <button onclick="filterGallery('exhibition')" class="filter-btn px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all" data-category="exhibition">Exhibition View</button>
+                </div>
+            </div>
+
+            <!-- Artwork Grid Container -->
+            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                <!-- Javascript will inject cards here -->
+            </div>
+        </section>
+
+        <section id="exhibition" class="py-20 px-6 md:px-12 bg-neutral-100/60 dark:bg-neutral-950/40 border-y border-neutral-200 dark:border-neutral-800">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-xl mb-12">
+                    <p class="text-xs uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-2">Exhibitions History</p>
+                    <h2 class="serif text-3xl md:text-4xl font-light">Solo & Group Shows</h2>
+                </div>
+
+                <div class="space-y-8 max-w-4xl">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-6 pb-6 border-b border-neutral-200 dark:border-neutral-800">
+                        <span class="text-xs uppercase tracking-widest text-neutral-400 font-mono">2026.05 — 2026.07</span>
+                        <div class="md:col-span-3">
+                            <h3 class="serif text-xl font-medium mb-1">Luke Park: Horizons of Texture (Solo)</h3>
+                            <p class="text-xs text-neutral-500 dark:text-neutral-400">Pace Gallery Annex, Seoul, South Korea</p>
+                            <span class="inline-block mt-2 text-[10px] tracking-widest uppercase px-2 py-0.5 bg-neutral-200 dark:bg-neutral-800 rounded">Upcoming</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-6 pb-6 border-b border-neutral-200 dark:border-neutral-800">
+                        <span class="text-xs uppercase tracking-widest text-neutral-400 font-mono">2025.11</span>
+                        <div class="md:col-span-3">
+                            <h3 class="serif text-xl font-medium mb-1">Silence & Space (Group)</h3>
+                            <p class="text-xs text-neutral-500 dark:text-neutral-400">Mori Art Museum Project Space, Tokyo, Japan</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-6 pb-6 border-b border-neutral-200 dark:border-neutral-800">
+                        <span class="text-xs uppercase tracking-widest text-neutral-400 font-mono">2024.09</span>
+                        <div class="md:col-span-3">
+                            <h3 class="serif text-xl font-medium mb-1">Intersections of Light and Linen</h3>
+                            <p class="text-xs text-neutral-500 dark:text-neutral-400">Seoul Museum of Art (SEMA), Seoul</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5">
+                    <div class="relative overflow-hidden aspect-[4/5] rounded bg-neutral-200 dark:bg-neutral-800">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1000&q=80" 
+                             alt="Luke Park Portrait" 
+                             class="w-full h-full object-cover filter grayscale contrast-105 hover:scale-105 transition-transform duration-700"
+                             onerror="this.src='https://placehold.co/800x1000/222/fff?text=Luke+Park'">
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 space-y-6">
+                    <p class="text-xs uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">About Luke Park (루크박)</p>
+                    <h2 class="serif text-3xl md:text-5xl font-light leading-snug">
+                        "Exploring the silent dialogue between natural light, texture, and physical balance."
+                    </h2>
+                    
+                    <div class="space-y-4 text-sm text-neutral-600 dark:text-neutral-300 font-light leading-relaxed pt-2">
+                        <p>
+                            Luke Park (루크박) is a fine artist based in Seoul, working primarily in oil, mixed mediums, and raw linen canvases.
+                        </p>
+                        <p>
+                            His work focuses on the quiet harmony of spatial depth, subtle color transitions, and understated visual weight. Through minimalist glazes and structured geometry, each piece creates an atmospheric sanctuary for quiet contemplation.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-neutral-200 dark:border-neutral-800 grid grid-cols-2 gap-6 text-xs uppercase tracking-wider">
+                        <div>
+                            <span class="block text-neutral-400 mb-1">Education</span>
+                            <span class="font-normal block">BFA Fine Arts</span>
+                            <span class="font-normal block">MFA Painting</span>
+                        </div>
+                        <div>
+                            <span class="block text-neutral-400 mb-1">Studio & Inquiries</span>
+                            <span class="font-normal block">Seoul, South Korea</span>
+                            <span class="font-normal block">Direct & Gallery Representation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 px-6 md:px-12 bg-neutral-100/60 dark:bg-neutral-950/40 border-t border-neutral-200 dark:border-neutral-800">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <p class="text-xs uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-2">Get in Touch</p>
+                    <h2 class="serif text-3xl md:text-5xl font-light mb-6">Acquisitions & Inquiries</h2>
+                    <p class="text-sm text-neutral-600 dark:text-neutral-400 max-w-md font-light leading-relaxed mb-8">
+                        For artwork availability, exhibition proposals, or general studio inquiries, please send a message.
+                    </p>
+
+                    <div class="space-y-3 text-xs tracking-widest uppercase">
+                        <p><span class="text-neutral-400">Email:</span> contact@lukepark.art</p>
+                        <p><span class="text-neutral-400">Instagram:</span> <a href="#" class="border-b border-neutral-400">@lukepark_studio</a></p>
+                        <p><span class="text-neutral-400">Location:</span> Seoul, South Korea</p>
+                    </div>
+                </div>
+
+                <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-5 bg-gallery-50 dark:bg-gallery-900 p-8 rounded border border-neutral-200 dark:border-neutral-800">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider mb-2 text-neutral-500">Name</label>
+                        <input type="text" required class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 focus:border-black dark:focus:border-white py-2 text-sm outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider mb-2 text-neutral-500">Email</label>
+                        <input type="email" required class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 focus:border-black dark:focus:border-white py-2 text-sm outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider mb-2 text-neutral-500">Message</label>
+                        <textarea rows="4" required class="w-full bg-transparent border-b border-neutral-300 dark:border-neutral-700 focus:border-black dark:focus:border-white py-2 text-sm outline-none transition-colors resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black text-xs uppercase tracking-widest hover:opacity-80 transition-opacity rounded-sm">
+                        Send Inquiry
+                    </button>
+                    <div id="formStatus" class="hidden text-xs text-emerald-600 dark:text-emerald-400 text-center pt-2">
+                        Thank you. Your message has been sent.
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 border-t border-neutral-200 dark:border-neutral-800 text-center text-xs text-neutral-400 tracking-wider uppercase">
+        <p>&copy; <span id="currentYear"></span> Luke Park (루크박). All Rights Reserved.</p>
+    </footer>
+
+    <div id="artworkModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 md:p-10">
+        <div class="bg-gallery-50 dark:bg-gallery-900 max-w-5xl w-full max-h-[90vh] rounded-lg overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
+            <button onclick="closeArtworkModal()" class="absolute top-4 right-4 z-10 text-xl w-10 h-10 rounded-full flex items-center justify-center bg-black/20 hover:bg-black/40 text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="md:w-3/5 bg-neutral-950 flex items-center justify-center p-4">
+                <img id="modalImage" src="" alt="" class="max-h-[50vh] md:max-h-[75vh] w-auto object-contain">
+            </div>
+
+            <div class="md:w-2/5 p-8 overflow-y-auto flex flex-col justify-between">
+                <div>
+                    <span id="modalCategory" class="text-[10px] tracking-widest uppercase px-2 py-1 bg-neutral-200 dark:bg-neutral-800 rounded font-mono"></span>
+                    <h2 id="modalTitle" class="serif text-3xl font-light mt-4 mb-2"></h2>
+                    <p id="modalYear" class="text-xs text-neutral-400 mb-6 font-mono"></p>
+
+                    <div class="space-y-3 text-xs border-t border-neutral-200 dark:border-neutral-800 pt-4">
+                        <p><strong class="text-neutral-500 uppercase tracking-wider block mb-1">Medium</strong> <span id="modalMedium" class="text-neutral-800 dark:text-neutral-200"></span></p>
+                        <p><strong class="text-neutral-500 uppercase tracking-wider block mb-1">Dimensions</strong> <span id="modalSize" class="text-neutral-800 dark:text-neutral-200"></span></p>
+                        <p><strong class="text-neutral-500 uppercase tracking-wider block mb-1">Status (소장 여부)</strong> <span id="modalStatus" class="inline-block px-2.5 py-1 rounded text-[10px] tracking-wider uppercase bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"></span></p>
+                    </div>
+
+                    <p id="modalDescription" class="mt-6 text-sm text-neutral-600 dark:text-neutral-300 font-light leading-relaxed"></p>
+                </div>
+
+                <div class="pt-8 mt-6 border-t border-neutral-200 dark:border-neutral-800">
+                    <a href="#contact" onclick="closeArtworkModal()" class="block text-center py-3 border border-neutral-800 dark:border-neutral-200 text-xs uppercase tracking-widest hover:bg-neutral-900 hover:text-white dark:hover:bg-neutral-100 dark:hover:text-black transition-all">
+                        Inquire About Work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="uploadModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div class="bg-gallery-50 dark:bg-gallery-900 max-w-lg w-full p-8 rounded-lg shadow-2xl relative">
+            <button onclick="closeUploadModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-neutral-800 dark:hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h3 class="serif text-2xl font-light mb-1">Add Luke Park's Artwork</h3>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 mb-6">Upload local artwork files directly to preview in the gallery.</p>
+
+            <form id="uploadForm" onsubmit="handleArtworkUpload(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block uppercase tracking-wider text-neutral-500 mb-1">Artwork Title (작품명)</label>
+                    <input type="text" id="upTitle" required placeholder="e.g. Composition No. 7" class="w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-300 dark:border-neutral-700 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block uppercase tracking-wider text-neutral-500 mb-1">Category</label>
+                        <select id="upCategory" class="w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-300 dark:border-neutral-700 outline-none">
+                            <option value="painting">Painting</option>
+                            <option value="selected">Selected Work</option>
+                            <option value="exhibition">Exhibition View</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block uppercase tracking-wider text-neutral-500 mb-1">Year</label>
+                        <input type="text" id="upYear" required placeholder="2026" class="w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-300 dark:border-neutral-700 outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block uppercase tracking-wider text-neutral-500 mb-1">Medium (재료)</label>
+                        <input type="text" id="upMedium" required placeholder="Oil on linen canvas" class="w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-300 dark:border-neutral-700 outline-none">
+                    </div>
+                    <div>
+                        <label class="block uppercase tracking-wider text-neutral-500 mb-1">Dimensions (크기)</label>
+                        <input type="text" id="upSize" required placeholder="162 x 130 cm" class="w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-300 dark:border-neutral-700 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block uppercase tracking-wider text-neutral-500 mb-1">Status (판매/소장 상태)</label>
+                    <select id="upStatus" class="w-full p-2.5 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-300 dark:border-neutral-700 outline-none">
+                        <option value="Available">Available (소장 가능)</option>
+                        <option value="Private Collection">Private Collection (개인 소장)</option>
+                        <option value="Non-saleable (비매)">Non-saleable (비매)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block uppercase tracking-wider text-neutral-500 mb-1">Artwork Image (작품 이미지 파일)</label>
+                    <input type="file" id="upFile" accept="image/*" class="w-full text-xs text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:bg-neutral-800 file:text-white dark:file:bg-neutral-200 dark:file:text-black">
+                    <p class="text-[10px] text-neutral-400 mt-1">Or enter image web URL:</p>
+                    <input type="url" id="upUrl" placeholder="https://..." class="w-full mt-1 p-2 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-300 dark:border-neutral-700 outline-none">
+                </div>
+
+                <button type="submit" class="w-full py-3 mt-4 bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black uppercase tracking-widest hover:opacity-80 transition-opacity rounded">
+                    Add to Luke Park's Portfolio
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample Portfolio Data for Luke Park
+        let artworkData = [
+            {
+                id: 'art-1',
+                title: 'Unspoken Horizon No. 4',
+                category: 'painting',
+                year: '2026',
+                medium: 'Oil and raw earth pigments on linen canvas',
+                size: '162.2 x 130.3 cm',
+                status: 'Available',
+                image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1000&q=80',
+                description: 'A study on visual weight, silence, and light reflection across textured natural linen canvas.'
+            },
+            {
+                id: 'art-2',
+                title: 'Architectural Silence II',
+                category: 'selected',
+                year: '2025',
+                medium: 'Mixed media, plaster, acrylic on wood panel',
+                size: '120 x 120 cm',
+                status: 'Private Collection',
+                image: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80',
+                description: 'Featured in Tokyo Group Show. Exploring structural space and monochromatic textures.'
+            },
+            {
+                id: 'art-3',
+                title: 'Exhibition View: Pace Gallery Annex',
+                category: 'exhibition',
+                year: '2025',
+                medium: 'Installation View',
+                size: 'Dimensions Variable',
+                status: 'Non-saleable (비매)',
+                image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1000&q=80',
+                description: 'Installation overview from Luke Park solo showing featuring large-scale linen works.'
+            },
+            {
+                id: 'art-4',
+                title: 'Prequel of Shadow',
+                category: 'painting',
+                year: '2024',
+                medium: 'Oil on canvas',
+                size: '116.8 x 91 cm',
+                status: 'Available',
+                image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1000&q=80',
+                description: 'Layered earth pigments capturing natural light movement.'
+            },
+            {
+                id: 'art-5',
+                title: 'Resonance in White',
+                category: 'selected',
+                year: '2024',
+                medium: 'Charcoal, gesso, and mineral wash on canvas',
+                size: '140 x 110 cm',
+                status: 'Non-saleable (비매)',
+                image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1000&q=80',
+                description: 'Artist archival collection piece.'
+            }
+        ];
+
+        function renderGallery(items) {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+
+            items.forEach((art) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'gallery-item group cursor-pointer border-b md:border-none border-neutral-200 dark:border-neutral-800 pb-6 md:pb-0';
+                itemEl.onclick = () => openArtworkModal(art);
+
+                itemEl.innerHTML = `
+                    <div class="relative overflow-hidden aspect-[4/5] bg-neutral-200 dark:bg-neutral-800 rounded-sm mb-4">
+                        <img src="${art.image}" 
+                             alt="${art.title}" 
+                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                             onerror="this.src='https://placehold.co/800x1000/222/fff?text=${encodeURIComponent(art.title)}'">
+                        <div class="artwork-overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 flex items-end p-6">
+                            <span class="text-white text-xs uppercase tracking-widest border-b border-white pb-1">View Details &rarr;</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start text-xs">
+                        <div>
+                            <h3 class="serif text-xl font-light text-neutral-900 dark:text-neutral-100 group-hover:opacity-70 transition-opacity">${art.title}</h3>
+                            <p class="text-neutral-500 dark:text-neutral-400 mt-0.5">${art.medium}</p>
+                        </div>
+                        <span class="font-mono text-neutral-400 ml-2">${art.year}</span>
+                    </div>
+                `;
+                grid.appendChild(itemEl);
+            });
+        }
+
+        function filterGallery(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.add('bg-neutral-900', 'text-white', 'dark:bg-neutral-100', 'dark:text-black');
+                } else {
+                    btn.classList.remove('bg-neutral-900', 'text-white', 'dark:bg-neutral-100', 'dark:text-black');
+                }
+            });
+
+            if (category === 'all') {
+                renderGallery(artworkData);
+            } else {
+                const filtered = artworkData.filter(item => item.category === category);
+                renderGallery(filtered);
+            }
+        }
+
+        function openArtworkModal(art) {
+            document.getElementById('modalImage').src = art.image;
+            document.getElementById('modalTitle').textContent = art.title;
+            document.getElementById('modalYear').textContent = art.year;
+            document.getElementById('modalMedium').textContent = art.medium;
+            document.getElementById('modalSize').textContent = art.size;
+            document.getElementById('modalStatus').textContent = art.status;
+            document.getElementById('modalCategory').textContent = art.category;
+            document.getElementById('modalDescription').textContent = art.description;
+
+            const modal = document.getElementById('artworkModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        function closeArtworkModal() {
+            const modal = document.getElementById('artworkModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function openUploadModal() {
+            const modal = document.getElementById('uploadModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        function closeUploadModal() {
+            const modal = document.getElementById('uploadModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function handleArtworkUpload(e) {
+            e.preventDefault();
+            const title = document.getElementById('upTitle').value;
+            const category = document.getElementById('upCategory').value;
+            const year = document.getElementById('upYear').value;
+            const medium = document.getElementById('upMedium').value;
+            const size = document.getElementById('upSize').value;
+            const status = document.getElementById('upStatus').value;
+            const fileInput = document.getElementById('upFile');
+            const urlInput = document.getElementById('upUrl').value;
+
+            const processNewArt = (src) => {
+                const newArt = {
+                    id: 'art-' + Date.now(),
+                    title,
+                    category,
+                    year,
+                    medium,
+                    size,
+                    status,
+                    image: src,
+                    description: `Newly added artwork: ${title} (${year}). Created with ${medium}.`
+                };
+
+                artworkData.unshift(newArt);
+                renderGallery(artworkData);
+                closeUploadModal();
+                document.getElementById('uploadForm').reset();
+            };
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    processNewArt(evt.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else if (urlInput.trim() !== '') {
+                processNewArt(urlInput.trim());
+            } else {
+                processNewArt(`https://placehold.co/800x1000/222/fff?text=${encodeURIComponent(title)}`);
+            }
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            document.getElementById('formStatus').classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => {
+                document.getElementById('formStatus').classList.add('hidden');
+            }, 5000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        document.getElementById('menuBtn').addEventListener('click', toggleMobileMenu);
+
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        window.onload = function() {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            renderGallery(artworkData);
+        };
+    </script>
+</body>
+</html>
